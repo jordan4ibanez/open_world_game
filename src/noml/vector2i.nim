@@ -34,5 +34,17 @@ proc subtract*(v, other, output: Vector2i): Vector2i =
     v.y - other.y
   )
 
+proc add*(v, other: Vector2i): Vector2i =
+  result.set(
+    v.x + other.x,
+    v.y + other.y
+  )
+
+proc add*(v, other, output: Vector2i): Vector2i =
+  return output.set(
+    v.x + other.x,
+    v.y + other.y
+  )
+
 proc toString*(v: Vector2i): string =
   return "Vector2i(" & $v.x & ", " & $v.y & ")"
