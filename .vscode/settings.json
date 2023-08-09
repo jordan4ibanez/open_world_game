@@ -1,0 +1,6 @@
+{
+    "nim.buildOnSave": true,
+    "nim.buildCommand": "c",
+    "nim.lintOnSave": true,
+    "editor.tabSize": 2,
+}
