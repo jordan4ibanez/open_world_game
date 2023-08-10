@@ -10,3 +10,4 @@ type
   Player* = ref object of LivingEntity
 
   Zombie* = ref object of LivingEntity
+
