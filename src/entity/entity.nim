@@ -3,7 +3,7 @@ import std/tables
 import uuids
 
 #[
-  Holds the blueprints for entitis.
+  Holds the blueprints for entities.
 ]#
 type
 
