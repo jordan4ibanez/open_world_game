@@ -1,3 +1,5 @@
+import std/math
+
 type
   Vector2i* = ref object of RootObj
     x: int = 0
@@ -65,6 +67,11 @@ proc multiply*(v, other, output: Vector2i): Vector2i =
     v.x * other.x,
     v.y * other.y
   )
+
+proc distance*(v, other: Vector2i): float =
+  let distanceX = (float)(v.x - other.x)
+  let distanceY = (float)(v.y - other.y)
+  result = sqrt( distanceX * distanceX + distanceY * distanceY)
 
 proc toString*(v: Vector2i): string =
   return "Vector2i(" & $v.x & ", " & $v.y & ")"
