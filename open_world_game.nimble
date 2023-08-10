@@ -11,3 +11,4 @@ bin           = @["open_world_game"]
 # Dependencies
 
 requires "nim >= 2.0.0"
+requires "uuids >= 0.1.11"
