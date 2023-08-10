@@ -9,6 +9,9 @@ proc getX*(v: Vector2i): int =
 proc getY*(v: Vector2i): int =
   return v.y
 
+proc get*(v: Vector2i): (int, int) =
+  return (v.x, v.y)
+
 proc setX*(v: Vector2i, x: int): Vector2i {.discardable.} =
   v.x = x
   return v
@@ -20,6 +23,11 @@ proc setY*(v: Vector2i, y: int): Vector2i {.discardable.} =
 proc set*(v: Vector2i, x,y: int): Vector2i =
   v.x = x
   v.y = y
+  return v
+
+proc set*(v, other: Vector2i): Vector2i {.discardable.} =
+  v.x = other.x
+  v.y = other.y
   return v
 
 proc subtract*(v, other: Vector2i): Vector2i =
