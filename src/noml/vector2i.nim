@@ -68,3 +68,6 @@ proc multiply*(v, other, output: Vector2i): Vector2i =
 
 proc toString*(v: Vector2i): string =
   return "Vector2i(" & $v.x & ", " & $v.y & ")"
+
+proc newVector2i*(x,y: int): Vector2i =
+  return Vector2i(x: x, y: y)
