@@ -35,5 +35,7 @@ proc getItem*(id: string): Item =
     raise newException(KeyError, "Could not find item " & id)
   return items[id]
 
+proc hasItem*(id: string): bool =
+  return items.hasKey id
 
 
