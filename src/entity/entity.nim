@@ -30,3 +30,10 @@ proc addItem*(name: string, position: Vector2i) =
 proc addItem*(name: string, x,y: int) =
   addItem(name, newVector2i(x, y))
 
+proc getItem*(id: string): Item =
+  if not items.hasKey id:
+    raise newException(KeyError, "Could not find item " & id)
+  return items[id]
+
+
+
