@@ -38,6 +38,10 @@ proc `-`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.y -= scalar
   return v
 
+proc `-`*(v: Vector2i, scalar: int): Vector2i {.discardable.} =
+  result.x = v.x - scalar
+  result.y = v.y - scalar
+
 proc `-`*(v, other: Vector2i): Vector2i =
   result.set(
     v.x - other.x,
@@ -55,6 +59,10 @@ proc `+`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.y += scalar
   return v
 
+proc `+`*(v: Vector2i, scalar: int): Vector2i {.discardable.} =
+  result.x = v.x + scalar
+  result.y = v.y + scalar
+
 proc `+`*(v, other: Vector2i): Vector2i =
   result.set(
     v.x + other.x,
@@ -71,6 +79,10 @@ proc `*`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x *= scalar
   v.y *= scalar
   return v
+
+proc `*`*(v: Vector2i, scalar: int): Vector2i {.discardable.} =
+  result.x = v.x * scalar
+  result.y = v.y * scalar
 
 proc `*`*(v, other: Vector2i): Vector2i =
   result.set(

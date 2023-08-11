@@ -38,6 +38,10 @@ proc `-`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.y -= scalar
   return v
 
+proc `-`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+  result.x = v.x - scalar
+  result.y = v.y - scalar
+
 proc `-`*(v, other: Vector2f): Vector2f =
   result.set(
     v.x - other.x,
@@ -55,6 +59,10 @@ proc `+`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.y += scalar
   return v
 
+proc `+`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+  result.x = v.x + scalar
+  result.y = v.y + scalar
+
 proc `+`*(v, other: Vector2f): Vector2f =
   result.set(
     v.x + other.x,
@@ -71,6 +79,10 @@ proc `*`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x *= scalar
   v.y *= scalar
   return v
+
+proc `*`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+  result.x = v.x * scalar
+  result.y = v.y * scalar
 
 proc `*`*(v, other: Vector2f): Vector2f =
   result.set(
