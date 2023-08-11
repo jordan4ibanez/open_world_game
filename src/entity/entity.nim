@@ -1,4 +1,5 @@
 import ../noml/vector2f
+import ../raylib_helpers/shapes
 import std/sugar
 import std/tables
 import std/typetraits
