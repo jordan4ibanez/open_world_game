@@ -21,3 +21,9 @@ OpenSuse required packages:
 # In: OpenSUSE Tumbleweed
 sudo zypper install libX11-devel libXcursor-devel libXext-devel libXinerama-devel libXi-devel Mesa-libGL-devel libXxf86vm-devel alsa-devel
 ```
+
+An easy way to automatically get this running before using the incremental autosave build:
+```
+# (in the root of this folder)
+nimble run
+```
