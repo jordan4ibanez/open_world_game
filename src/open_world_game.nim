@@ -166,7 +166,6 @@ proc mainLoop =
     drawPixel(rightPupilPos, pupilOutlineColor)
 
   # Begin drawing mouth.
-  yaw = 0
   
   let mouthWidth = 140.0
   var mouthUpperBasePos = newVector2f(
@@ -176,6 +175,40 @@ proc mainLoop =
   let mouthHeight = 30.0
 
   let mouthColor = Black
+
+  # Fill mouth. ( ͡° ͜ʖ ͡°)
+  block:
+    # This is such a specific procedure I don't feel like giving it a proc.
+
+    for x in countUp((int)mouthUpperBasePos.getX(),(int)(mouthUpperBasePos.getX() + mouthWidth)):
+      let currentMouthDepth = mouthUpperBasePos.getY() + (sin(PI * ((float)(x - (int)mouthUpperBasePos.getX()) / mouthWidth)) * ((cos(eyeRotation) + 1.0) * mouthHeight))
+      for y in countUp((int)mouthUpperBasePos.getY(), (int)(currentMouthDepth)):
+        let currentPosition = newVector2f((float)x,(float)y)
+        drawPixel(currentPosition, DarkGray)
+
+    # Now give it a tounge
+    yaw = 0
+
+    let tongueRadius = 30.0
+
+    let tonguePosition = mouthUpperBasePos + newVector2f(mouthWidth / 2.0, 40)
+    
+    # while yaw <= PI * 2.0:
+    block:
+      let xMin = (int)floor(tonguePosition.getX() - tongueRadius)
+      let xMax = (int)floor(tonguePosition.getX() + tongueRadius)
+      let yMin = (int)floor(tonguePosition.getY() - tongueRadius)
+      let yMax = (int)floor(tonguePosition.getY() + tongueRadius)
+      for x in countUp(xMin, xMax):
+        let currentMouthDepth = mouthUpperBasePos.getY() + (sin(PI * ((float)(x - (int)mouthUpperBasePos.getX()) / mouthWidth)) * ((cos(eyeRotation) + 1.0) * mouthHeight))
+        for y in countup(yMin, (int)currentMouthDepth):
+          let currentPos = newVector2f((float)(x) + 0.5,(float)(y) + 0.5)
+          if currentPos.distance(tonguePosition) < tongueRadius:
+            drawPixel(currentPos, Red)
+
+
+
+  yaw = 0
 
   while yaw <= 1:
 
