@@ -73,7 +73,8 @@ proc distance*(v, other: Vector2i): float =
   let distanceY = (float)(v.y - other.y)
   result = sqrt( distanceX * distanceX + distanceY * distanceY)
 
-proc toString*(v: Vector2i): string =
+
+proc `$`*(v: Vector2i): string =
   return "Vector2i(" & $v.x & ", " & $v.y & ")"
 
 proc newVector2i*(x,y: int): Vector2i =
