@@ -1,11 +1,35 @@
 import noml/vector2i
 import entity/entity
+import std/strutils
+import utils/print
 
+var running: bool = true
 
-Items.add("bread", 0, 0)
+proc parseInput(input: string): seq[string] =
+  return input.split
 
-for item in Items.getInRadius(newVector2i(0,0), 5):
-  let id = item.getID
+proc interpretCommand(input: string) =
+  case input:
+  of "forward":
+    # do things
+    echo "hi"
+  of "backward":
+    # do things
+    echo "hi"
+  of "left":
+    # do things
+    echo "hi"
+  of "right":
+    # do things
+    echo "hi"
+  of "":
+    echo "You must type something!"
+  of "quit", "exit", "leave", "bye", "seeya":
+    running = false
+  else:
+    println("Don't know how to " & input)
 
-for item in Items.getAll:
-  echo item[]
+while (running):
+  print "> "
+  let input = parseInput readLine stdin
+  interpretCommand input[0]
