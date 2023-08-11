@@ -86,8 +86,8 @@ proc newVector2f*(x,y: float): Vector2f =
 #[
   Automatic raylib vector2 converters.
 ]#
-converter toVector2*(x: Vector2f): raylib.Vector2 {.inline.} =
-  cast[raylib.Vector2](x)
+converter toVector2*(vec: Vector2f): raylib.Vector2 {.inline.} =
+  result = Vector2(x: vec.x, y: vec.y)
 
-converter fromVector2*(x: raylib.Vector2): Vector2f {.inline.} =
-  cast[Vector2f](x)
+converter fromVector2*(vec: raylib.Vector2): Vector2f {.inline.} =
+  result = Vector2f(x: vec.x, y: vec.y)
