@@ -8,8 +8,8 @@ var running: bool = true
 proc parseInput(input: string): seq[string] =
   return input.split
 
-proc interpretCommand(input: string) =
-  case input:
+proc interpretCommand(input: seq[string]) =
+  case input[0].toLower:
   of "forward":
     # do things
     echo "hi"
@@ -32,4 +32,4 @@ proc interpretCommand(input: string) =
 while (running):
   print "> "
   let input = parseInput readLine stdin
-  interpretCommand input[0]
+  interpretCommand input
