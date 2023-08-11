@@ -22,6 +22,17 @@ var headRotation = 0.0
 let headDistance = 100.0
 let headBasePosition = newVector2f(300, 300)
 
+proc fill(basePosition: Vector2f, radius: float, color: Color) =
+  let xMin = (int)floor(basePosition.getX() - radius)
+  let xMax = (int)floor(basePosition.getX() + radius)
+  let yMin = (int)floor(basePosition.getY() - radius)
+  let yMax = (int)floor(basePosition.getY() + radius)
+  for x in countUp(xMin, xMax):
+    for y in countup(yMin, yMax):
+      let currentPos = newVector2f((float)(x) + 0.5,(float)(y) + 0.5)
+      if currentPos.distance(basePosition) < radius:
+        drawPixel(currentPos, color)
+
 proc mainLoop =
   # Update procedure.
 
@@ -46,7 +57,7 @@ proc mainLoop =
 
   # drawRectangle(person, Red)
 
-  var yaw = 0.0
+  
 
   let basePosition = headBasePosition + newVector2f(sin(-headRotation), cos(headRotation)) * headDistance
 
@@ -54,13 +65,18 @@ proc mainLoop =
 
   let eyeRadius = 20.0
 
-  let leftEyeBase = Vector2(x: basePosition.getX() - 50, y: basePosition.getY() - 40)
-  let rightEyeBase = Vector2(x: basePosition.getX() + 50, y: basePosition.getY() - 40)
+  let leftEyeBase = newVector2f(basePosition.getX() - 50, basePosition.getY() - 40)
+  let rightEyeBase = newVector2f(basePosition.getX() + 50, basePosition.getY() - 40)
 
   let pupilRadius = 5.0
   let pupilDistance = eyeRadius - pupilRadius
 
   var pupilOffset = newVector2f(sin(-eyeRotation), cos(eyeRotation)) * pupilDistance
+
+  var yaw = 0.0
+
+  # Head fill.
+  fill(basePosition, headRadius, headFillColor)
 
   while yaw < PI * 2.0:
 
@@ -72,21 +88,31 @@ proc mainLoop =
     var headPosY = floor(cos(yaw) * headRadius) + basePosition.getY()
     var headPos = Vector2(x: headPosX, y: headPosY)
 
-    drawPixel(headPos, Red)
-  
+    drawPixel(headPos, headOutlineColor)
+
+
+  let eyeFillColor = White
+  let eyeOutlineColor = Black
+
+  # Left eye fill.
+  fill(leftEyeBase, eyeRadius, eyeFillColor)
+
   yaw = 0
 
   while yaw < PI * 2.0:
 
     yaw += 0.001
 
-    # Left eye
+    # Left eye lines.
 
-    var leftEyePosX = floor(sin(-yaw) * eyeRadius) + leftEyeBase.x
-    var leftEyePosY = floor(cos(-yaw) * eyeRadius) + leftEyeBase.y
+    var leftEyePosX = floor(sin(-yaw) * eyeRadius) + leftEyeBase.getX()
+    var leftEyePosY = floor(cos(-yaw) * eyeRadius) + leftEyeBase.getY()
     var leftEyePos = Vector2(x: leftEyePosX, y: leftEyePosY)
     
-    drawPixel(leftEyePos, Red)
+    drawPixel(leftEyePos, eyeOutlineColor)
+
+  # Right eye fill.
+  fill(rightEyeBase, eyeRadius, eyeFillColor)
 
   yaw = 0
 
@@ -94,13 +120,19 @@ proc mainLoop =
     
     yaw += 0.001
 
-    # Right eye
+    # Right eye lines.
 
-    var rightEyePosX = floor(sin(-yaw) * eyeRadius) + rightEyeBase.x
-    var rightEyePosY = floor(cos(-yaw) * eyeRadius) + rightEyeBase.y
+    var rightEyePosX = floor(sin(-yaw) * eyeRadius) + rightEyeBase.getX()
+    var rightEyePosY = floor(cos(-yaw) * eyeRadius) + rightEyeBase.getY()
     var rightEyePos = Vector2(x: rightEyePosX, y: rightEyePosY)
     
-    drawPixel(rightEyePos, Red)
+    drawPixel(rightEyePos, eyeOutlineColor)
+
+  let pupilFillColor = Black
+  let pupilOutlineColor = Green
+
+  # Left pupil fill.
+  fill(leftEyeBase + pupilOffset, pupilRadius, pupilFillColor)
 
   yaw = 0
 
@@ -108,12 +140,17 @@ proc mainLoop =
     
     yaw += 0.001
 
-    # Left pupil
-    var leftPupilPosX = floor(sin(-yaw) * pupilRadius) + leftEyeBase.x + pupilOffset.getX()
-    var leftPupilPosY = floor(cos(-yaw) * pupilRadius) + leftEyeBase.y + pupilOffset.getY()
+    # Left pupil lines.
+
+    var leftPupilPosX = floor(sin(-yaw) * pupilRadius) + leftEyeBase.getX() + pupilOffset.getX()
+    var leftPupilPosY = floor(cos(-yaw) * pupilRadius) + leftEyeBase.getY() + pupilOffset.getY()
     var leftPupilPos = Vector2(x: leftPupilPosX, y: leftPupilPosY)
 
-    drawPixel(leftPupilPos, Red)
+    drawPixel(leftPupilPos, pupilOutlineColor)
+
+  # Right pupil fill.
+  fill(rightEyeBase - pupilOffset, pupilRadius, pupilFillColor)
+
 
   yaw = 0
 
@@ -122,11 +159,11 @@ proc mainLoop =
     yaw += 0.001
 
     # Right pupil
-    var rightPupilPosX = floor(sin(-yaw) * pupilRadius) + rightEyeBase.x - pupilOffset.getX()
-    var rightPupilPosY = floor(cos(-yaw) * pupilRadius) + rightEyeBase.y - pupilOffset.getY()
+    var rightPupilPosX = floor(sin(-yaw) * pupilRadius) + rightEyeBase.getX() - pupilOffset.getX()
+    var rightPupilPosY = floor(cos(-yaw) * pupilRadius) + rightEyeBase.getY() - pupilOffset.getY()
     var rightPupilPos = Vector2(x: rightPupilPosX, y: rightPupilPosY)
 
-    drawPixel(rightPupilPos, Red)
+    drawPixel(rightPupilPos, pupilOutlineColor)
 
   # Begin drawing mouth.
   yaw = 0
@@ -138,6 +175,8 @@ proc mainLoop =
     )
   let mouthHeight = 30.0
 
+  let mouthColor = Black
+
   while yaw <= 1:
 
     # Upper portion.
@@ -146,7 +185,7 @@ proc mainLoop =
       mouthUpperBasePos.getY()
     )
 
-    drawPixel(upperPos, Red)
+    drawPixel(upperPos, mouthColor)
 
     # Lower portion.
     var lowerPos = newVector2f(
@@ -154,7 +193,7 @@ proc mainLoop =
       mouthUpperBasePos.getY() + (sin(PI * yaw) * ((cos(eyeRotation) + 1.0) * mouthHeight))
     )
 
-    drawPixel(lowerPos, Red)
+    drawPixel(lowerPos, mouthColor)
 
 
     yaw += 0.001
