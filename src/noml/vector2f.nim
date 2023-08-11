@@ -1,4 +1,5 @@
 import std/math
+import raylib
 
 type
   Vector2f* = ref object of RootObj
@@ -78,3 +79,12 @@ proc `$`*(v: Vector2f): string =
 
 proc newVector2f*(x,y: float): Vector2f =
   return Vector2f(x: x, y: y)
+
+#[
+  Automatic raylib vector2 converters.
+]#
+converter toVector2*(x: Vector2f): raylib.Vector2 {.inline.} =
+  cast[raylib.Vector2](x)
+
+converter fromVector2*(x: raylib.Vector2): Vector2f {.inline.} =
+  cast[Vector2f](x)
