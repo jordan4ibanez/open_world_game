@@ -40,6 +40,10 @@ proc mainLoop =
   clearBackground(Black)
   drawText("hi", 0,0,32, RayWhite)
 
+
+  let headOutlineColor = Red
+  let headFillColor = Yellow
+
   # drawRectangle(person, Red)
 
   var yaw = 0.0
@@ -62,13 +66,19 @@ proc mainLoop =
 
     yaw += 0.001
 
-    # Head
+    # Head lines.
 
     var headPosX = floor(sin(-yaw) * headRadius) + basePosition.getX()
     var headPosY = floor(cos(yaw) * headRadius) + basePosition.getY()
     var headPos = Vector2(x: headPosX, y: headPosY)
 
     drawPixel(headPos, Red)
+  
+  yaw = 0
+
+  while yaw < PI * 2.0:
+
+    yaw += 0.001
 
     # Left eye
 
@@ -78,6 +88,12 @@ proc mainLoop =
     
     drawPixel(leftEyePos, Red)
 
+  yaw = 0
+
+  while yaw < PI * 2.0:
+    
+    yaw += 0.001
+
     # Right eye
 
     var rightEyePosX = floor(sin(-yaw) * eyeRadius) + rightEyeBase.x
@@ -86,12 +102,24 @@ proc mainLoop =
     
     drawPixel(rightEyePos, Red)
 
+  yaw = 0
+
+  while yaw < PI * 2.0:
+    
+    yaw += 0.001
+
     # Left pupil
     var leftPupilPosX = floor(sin(-yaw) * pupilRadius) + leftEyeBase.x + pupilOffset.getX()
     var leftPupilPosY = floor(cos(-yaw) * pupilRadius) + leftEyeBase.y + pupilOffset.getY()
     var leftPupilPos = Vector2(x: leftPupilPosX, y: leftPupilPosY)
 
     drawPixel(leftPupilPos, Red)
+
+  yaw = 0
+
+  while yaw < PI * 2.0:
+    
+    yaw += 0.001
 
     # Right pupil
     var rightPupilPosX = floor(sin(-yaw) * pupilRadius) + rightEyeBase.x - pupilOffset.getX()
