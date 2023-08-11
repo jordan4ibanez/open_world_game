@@ -12,3 +12,4 @@ bin           = @["open_world_game"]
 
 requires "nim >= 2.0.0"
 requires "uuids >= 0.1.11"
+requires "naylib >= 4.6.1"
