@@ -35,12 +35,15 @@ var running: bool = true
   # let input = parseInput readLine stdin
   # interpretCommand input
 
+#[
+  Game entry point, init, loop, and exit.
+]#
 proc initialize =
   initWindow(800, 600, "Hello")
   setTargetFPS(60)
 
 proc mainLoop =
-  # Update pro
+  # Update procedure.
 
   # Draw procedure.
   beginDrawing()
@@ -52,13 +55,14 @@ proc cleanUp =
   closeWindow()
 
 
+
+#[
+  The above functional processes implemented in a nim-friendly manor.
+]#
 proc main =
   initialize()
-  
   while not windowShouldClose():
     mainLoop()
-  
   cleanUp()
-
 
 main()
