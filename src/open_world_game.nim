@@ -35,9 +35,30 @@ var running: bool = true
   # let input = parseInput readLine stdin
   # interpretCommand input
 
-initWindow(800, 600, "Hello")
+proc initialize =
+  initWindow(800, 600, "Hello")
+  setTargetFPS(60)
 
-block gameLoop:
-  echo "hi"
+proc mainLoop =
+  # Update pro
 
-closeWindow()
+  # Draw procedure.
+  beginDrawing()
+  clearBackground(Black)
+  drawText("hi", 0,0,32, RayWhite)
+  endDrawing()
+
+proc cleanUp =
+  closeWindow()
+
+
+proc main =
+  initialize()
+  
+  while not windowShouldClose():
+    mainLoop()
+  
+  cleanUp()
+
+
+main()
