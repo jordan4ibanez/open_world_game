@@ -2,6 +2,7 @@ import noml/vector2f
 import entity/entity
 import std/strutils
 import utils/print
+import raylib
 
 var running: bool = true
 
@@ -33,3 +34,10 @@ var running: bool = true
   # print "> "
   # let input = parseInput readLine stdin
   # interpretCommand input
+
+initWindow(800, 600, "Hello")
+
+block gameLoop:
+  echo "hi"
+
+closeWindow()
