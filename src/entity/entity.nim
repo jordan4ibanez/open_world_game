@@ -1,5 +1,7 @@
 import ../noml/vector2i
+import std/sugar
 import std/tables
+import std/typetraits
 import uuids
 
 #[
@@ -7,14 +9,14 @@ import uuids
 ]#
 type
 
-  Entity = ref object of RootObj
+  Entity* = ref object of RootObj
     id: string
     position: Vector2i
   
-  Item = ref object of Entity
+  Item* = ref object of Entity
     name: string
   
-  LivingEntity = ref object of Entity
+  LivingEntity* = ref object of Entity
     health: int
 
   Player* = ref object of LivingEntity
@@ -47,7 +49,7 @@ type
 
 proc add*(container: Container, name: string, position: Vector2i) =
   let id: string = $genUUID()
-  container.values[id] = Item(name: name, position: position)
+  container.values[id] = Item(name: name, position: position, id: id)
 
 proc add*(container: Container, name: string, x,y: int) =
   add container, name, newVector2i(x, y)
@@ -61,7 +63,7 @@ proc get*(container: Container, id: string): Item =
   return container.values[id]
 
 proc remove*(container: Container, id: string) =
-  if not has id:
+  if not container.has id:
     raise newException(KeyError, "could not find" & id)
   container.values.del id
 
@@ -70,8 +72,11 @@ proc getInRadius*(container: Container, position: Vector2i, radius: float): seq[
     if position.distance(item.getPosition) <= radius:
       result.add item
 
-proc getAll*(container: Container): Table =
-  return container.values.values
+proc getAll*[T](container: Container[T]): seq[T] =
+  # Table[system.string, T]
+  return collect:
+    for item in container.values.values:
+      item
 
 #[
   Entity containers.
