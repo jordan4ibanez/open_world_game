@@ -1,4 +1,4 @@
-import ../noml/vector2i
+import ../noml/vector2f
 import std/sugar
 import std/tables
 import std/typetraits
@@ -11,7 +11,7 @@ type
 
   Entity* = ref object of RootObj
     id: string
-    position: Vector2i
+    position: Vector2f
   
   Item* = ref object of Entity
     name: string
@@ -26,7 +26,7 @@ type
 #[
   Basic entity things
 ]#
-proc getPosition*(entity: Entity): Vector2i =
+proc getPosition*(entity: Entity): Vector2f =
   return entity.position
 
 proc getID*(entity: Entity): string =
@@ -47,12 +47,12 @@ type
   Container[T] = ref object of RootObj
     values: Table[string, T]
 
-proc add*(container: Container, name: string, position: Vector2i) =
+proc add*(container: Container, name: string, position: Vector2f) =
   let id: string = $genUUID()
   container.values[id] = Item(name: name, position: position, id: id)
 
-proc add*(container: Container, name: string, x,y: int) =
-  add container, name, newVector2i(x, y)
+proc add*(container: Container, name: string, x,y: float) =
+  add container, name, newVector2f(x, y)
 
 proc has*(container: Container, id: string): bool =
   return container.values.hasKey id
@@ -67,7 +67,7 @@ proc remove*(container: Container, id: string) =
     raise newException(KeyError, "could not find" & id)
   container.values.del id
 
-proc getInRadius*(container: Container, position: Vector2i, radius: float): seq[Item] =
+proc getInRadius*(container: Container, position: Vector2f, radius: float): seq[Item] =
   for item in container.values.values:
     if position.distance(item.getPosition) <= radius:
       result.add item
