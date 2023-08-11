@@ -2,7 +2,7 @@ import std/math
 import raylib
 
 type
-  Vector2f* = ref object of RootObj
+  Vector2f* = object of RootObj
     x: float = 0
     y: float = 0
 
@@ -15,25 +15,25 @@ proc getY*(v: Vector2f): float =
 proc get*(v: Vector2f): (float, float) =
   return (v.x, v.y)
 
-proc setX*(v: Vector2f, x: float): Vector2f {.discardable.} =
+proc setX*(v: var Vector2f, x: float): Vector2f {.discardable.} =
   v.x = x
   return v
 
-proc setY*(v: Vector2f, y: float): Vector2f {.discardable.} =
+proc setY*(v: var Vector2f, y: float): Vector2f {.discardable.} =
   v.y = y
   return v
 
-proc set*(v: Vector2f, x,y: float): Vector2f =
+proc set*(v: var Vector2f, x,y: float): Vector2f =
   v.x = x
   v.y = y
   return v
 
-proc set*(v, other: Vector2f): Vector2f {.discardable.} =
+proc set*(v, other: var Vector2f): Vector2f {.discardable.} =
   v.x = other.x
   v.y = other.y
   return v
 
-proc `-`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+proc `-`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x -= scalar
   v.y -= scalar
   return v
@@ -44,13 +44,13 @@ proc `-`*(v, other: Vector2f): Vector2f =
     v.y - other.y
   )
 
-proc `-`*(v, other, output: Vector2f): Vector2f =
+proc `-`*(v, other, output: var Vector2f): Vector2f =
   return output.set(
     v.x - other.x,
     v.y - other.y
   )
   
-proc `+`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+proc `+`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x += scalar
   v.y += scalar
   return v
@@ -61,13 +61,13 @@ proc `+`*(v, other: Vector2f): Vector2f =
     v.y + other.y
   )
 
-proc `+`*(v, other, output: Vector2f): Vector2f =
+proc `+`*(v, other, output: var Vector2f): Vector2f =
   return output.set(
     v.x + other.x,
     v.y + other.y
   )
 
-proc `*`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+proc `*`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x *= scalar
   v.y *= scalar
   return v
@@ -78,7 +78,7 @@ proc `*`*(v, other: Vector2f): Vector2f =
     v.y * other.y
   )
 
-proc `*`*(v, other, output: Vector2f): Vector2f =
+proc `*`*(v, other, output: var Vector2f): Vector2f =
   return output.set(
     v.x * other.x,
     v.y * other.y

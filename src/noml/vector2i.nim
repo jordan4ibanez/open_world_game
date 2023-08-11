@@ -2,7 +2,7 @@ import std/math
 import raylib
 
 type
-  Vector2i* = ref object of RootObj
+  Vector2i* = object of RootObj
     x: int = 0
     y: int = 0
 
@@ -15,25 +15,25 @@ proc getY*(v: Vector2i): int =
 proc get*(v: Vector2i): (int, int) =
   return (v.x, v.y)
 
-proc setX*(v: Vector2i, x: int): Vector2i {.discardable.} =
+proc setX*(v: var Vector2i, x: int): Vector2i {.discardable.} =
   v.x = x
   return v
 
-proc setY*(v: Vector2i, y: int): Vector2i {.discardable.} =
+proc setY*(v: var Vector2i, y: int): Vector2i {.discardable.} =
   v.y = y
   return v
 
-proc set*(v: Vector2i, x,y: int): Vector2i =
+proc set*(v: var Vector2i, x,y: int): Vector2i =
   v.x = x
   v.y = y
   return v
 
-proc set*(v, other: Vector2i): Vector2i {.discardable.} =
+proc set*(v, other: var Vector2i): Vector2i {.discardable.} =
   v.x = other.x
   v.y = other.y
   return v
 
-proc `-`*(v: Vector2i, scalar: int): Vector2i {.discardable.} =
+proc `-`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x -= scalar
   v.y -= scalar
   return v
@@ -44,13 +44,13 @@ proc `-`*(v, other: Vector2i): Vector2i =
     v.y - other.y
   )
 
-proc `-`*(v, other, output: Vector2i): Vector2i =
+proc `-`*(v, other, output: var Vector2i): Vector2i =
   return output.set(
     v.x - other.x,
     v.y - other.y
   )
 
-proc `+`*(v: Vector2i, scalar: int): Vector2i {.discardable.} =
+proc `+`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x += scalar
   v.y += scalar
   return v
@@ -61,13 +61,13 @@ proc `+`*(v, other: Vector2i): Vector2i =
     v.y + other.y
   )
 
-proc `+`*(v, other, output: Vector2i): Vector2i =
+proc `+`*(v, other, output: var Vector2i): Vector2i =
   return output.set(
     v.x + other.x,
     v.y + other.y
   )
 
-proc `*`*(v: Vector2i, scalar: int): Vector2i {.discardable.} =
+proc `*`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x *= scalar
   v.y *= scalar
   return v
@@ -78,7 +78,7 @@ proc `*`*(v, other: Vector2i): Vector2i =
     v.y * other.y
   )
 
-proc `*`*(v, other, output: Vector2i): Vector2i =
+proc `*`*(v, other, output: var Vector2i): Vector2i =
   return output.set(
     v.x * other.x,
     v.y * other.y
