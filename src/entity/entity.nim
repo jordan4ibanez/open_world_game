@@ -20,6 +20,8 @@ type
 
   Zombie* = ref object of LivingEntity
 
+proc getPosition*(entity: Entity): Vector2i =
+  return entity.position
 
 var items = initTable[string, Item]()
 
@@ -28,14 +30,19 @@ proc addItem*(name: string, position: Vector2i) =
   items[id] = Item(name: name, position: position)
 
 proc addItem*(name: string, x,y: int) =
-  addItem(name, newVector2i(x, y))
-
-proc getItem*(id: string): Item =
-  if not items.hasKey id:
-    raise newException(KeyError, "Could not find item " & id)
-  return items[id]
+  addItem name, newVector2i(x, y)
 
 proc hasItem*(id: string): bool =
   return items.hasKey id
+
+proc getItem*(id: string): Item =
+  if not hasItem id:
+    raise newException(KeyError, "Could not find item " & id)
+  return items[id]
+
+proc itemsInRadius*(position: Vector2i, radius: float): seq[Item] =
+  for item in items.values:
+    if position.distance(item.getPosition) <= radius:
+      result.add item
 
 
