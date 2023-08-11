@@ -28,7 +28,7 @@ proc set*(v: var Vector2i, x,y: int): Vector2i =
   v.y = y
   return v
 
-proc set*(v, other: var Vector2i): Vector2i {.discardable.} =
+proc set*(v: var Vector2i, other: Vector2i): Vector2i {.discardable.} =
   v.x = other.x
   v.y = other.y
   return v
@@ -44,7 +44,7 @@ proc `-`*(v, other: Vector2i): Vector2i =
     v.y - other.y
   )
 
-proc `-`*(v, other, output: var Vector2i): Vector2i =
+proc `-`*(v, other: Vector2i, output: var Vector2i): Vector2i =
   return output.set(
     v.x - other.x,
     v.y - other.y
@@ -61,7 +61,7 @@ proc `+`*(v, other: Vector2i): Vector2i =
     v.y + other.y
   )
 
-proc `+`*(v, other, output: var Vector2i): Vector2i =
+proc `+`*(v, other: Vector2i, output: var Vector2i): Vector2i =
   return output.set(
     v.x + other.x,
     v.y + other.y
@@ -78,7 +78,7 @@ proc `*`*(v, other: Vector2i): Vector2i =
     v.y * other.y
   )
 
-proc `*`*(v, other, output: var Vector2i): Vector2i =
+proc `*`*(v, other: Vector2i, output: var Vector2i): Vector2i =
   return output.set(
     v.x * other.x,
     v.y * other.y
