@@ -33,41 +33,44 @@ proc set*(v, other: Vector2i): Vector2i {.discardable.} =
   v.y = other.y
   return v
 
-proc subtract*(v, other: Vector2i): Vector2i =
+proc `-`*(v, other: Vector2i): Vector2i =
   result.set(
     v.x - other.x,
     v.y - other.y
   )
 
-proc subtract*(v, other, output: Vector2i): Vector2i =
+proc `-`*(v, other, output: Vector2i): Vector2i =
   return output.set(
     v.x - other.x,
     v.y - other.y
   )
 
-proc add*(v, other: Vector2i): Vector2i =
+proc `+`*(v, other: Vector2i): Vector2i =
   result.set(
     v.x + other.x,
     v.y + other.y
   )
 
-proc add*(v, other, output: Vector2i): Vector2i =
+proc `+`*(v, other, output: Vector2i): Vector2i =
   return output.set(
     v.x + other.x,
     v.y + other.y
   )
 
-proc multiply*(v, other: Vector2i): Vector2i =
+proc `*`*(v, other: Vector2i): Vector2i =
   result.set(
     v.x * other.x,
     v.y * other.y
   )
 
-proc multiply*(v, other, output: Vector2i): Vector2i =
+proc `*`*(v, other, output: Vector2i): Vector2i =
   return output.set(
     v.x * other.x,
     v.y * other.y
   )
+
+proc `==`*(v,other: Vector2i): bool =
+  return v.x == other.x and v.y == other.y
 
 proc distance*(v, other: Vector2i): float =
   let distanceX = (float)(v.x - other.x)
