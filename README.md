@@ -18,5 +18,5 @@ Literally no art style, no play style, no cares given.
 OpenSuse required packages:
 ```
 # this needs to be double checked in a VM
-sudo zypper install libX11-devel libXcursor-devel libXext-devel libXinerama-devel libXi-devel Mesa-libGL-devel libXxf86vm-devel
+sudo zypper install libX11-devel libXcursor-devel libXext-devel libXinerama-devel libXi-devel Mesa-libGL-devel libXxf86vm-devel alsa-devel
 ```
