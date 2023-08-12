@@ -7,6 +7,7 @@ import entity/entity
 import utils/print
 import raylib
 import raylib_helpers/shapes
+import controls/mouse
 
 var running: bool = true
 
@@ -24,6 +25,7 @@ var yaw = 0.0
 
 proc mainLoop =
   # Update procedure.
+  Mouse.update()
 
   yaw += 10
 
@@ -32,11 +34,14 @@ proc mainLoop =
   Cam.update()
   beginMode2D(Cam)
   clearBackground(Black)
-  drawText("hi", 0,0,32, RayWhite)
+
+  # drawText("hi", 0,0,32, RayWhite)
 
   let rectangle = newRectangle(SinglePlayer.getPosition(),100,200)
-  
+
   drawRectangle(rectangle, rectangle.getCenter(), yaw, Red)
+
+
 
   endMode2D()
   endDrawing()
