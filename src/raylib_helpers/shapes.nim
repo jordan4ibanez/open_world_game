@@ -27,14 +27,36 @@ proc newRectangle*(x,y: float,size: Vector2f): Rectangle =
 proc getWidth*(r: Rectangle): float =
   return r.width
 
+proc setWidth*(r: var Rectangle, width: float) =
+  r.width = width
+
 proc getHeight*(r: Rectangle): float =
   return r.height
+
+proc setHeight*(r: var Rectangle, height: float) =
+  r.height = height
 
 proc getSize*(r: Rectangle): Vector2f =
   return newVector2f(r.width, r.height)
 
+proc setSize*(r: var Rectangle, size: Vector2f) =
+  r.width = size.getX()
+  r.height = size.getY()
+
+proc setSize*(r: var Rectangle, x,y: float) =
+  r.width = x
+  r.height = y
+
 proc getPosition*(r: Rectangle): Vector2f =
   return newVector2f(r.x, r.y)
+
+proc setPosition*(r: var Rectangle, position: Vector2f) =
+  r.x = position.getX()
+  r.y = position.getY()
+
+proc setPosition*(r: var Rectangle, x,y: float) =
+  r.x = x
+  r.y = y
 
 proc getCenter*(r: Rectangle): Vector2f =
   return r.getSize / 2.0
