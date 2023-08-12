@@ -39,6 +39,8 @@ proc mainLoop =
 
   let yaw = radToDeg arctan2(directionVector.getY(), directionVector.getX())
 
+  SinglePlayer.setYaw(yaw)
+
 
 
   # Draw procedure.
@@ -50,11 +52,15 @@ proc mainLoop =
 
   # drawText("hi", 0,0,32, RayWhite)
 
-  let rectangle = newRectangle(SinglePlayer.getPosition(), 100, 150)
+  var rectangle = newRectangle(SinglePlayer.getPosition(), 100, 150)
 
-  drawRectangle(rectangle, rectangle.getCenter(), yaw, Red)
+  # Render the player.
+  drawRectangle(rectangle, rectangle.getCenter(), SinglePlayer.getYaw(), Red)
 
-
+  # Render the zombies.
+  for zombie in Zombies.getAll():
+    rectangle.setPosition(zombie.getPosition())
+    drawRectangle(rectangle, rectangle.getCenter(), radToDeg zombie.getYaw(), DarkGreen)
 
   endMode2D()
   endDrawing()
