@@ -21,19 +21,24 @@ proc initialize =
   setTargetFPS(60)
 
 
-var yaw = 0.0
-
 proc mainLoop =
   # Update procedure.
   Mouse.update()
 
-  yaw += 10
+  
+  let directionVector = SinglePlayer.getPosition() - Mouse.getWorldPosition()
+
+  let yaw = radToDeg arctan2(directionVector.getY(), directionVector.getX())
+
+  println Mouse.getWorldPosition()
+  
 
   # Draw procedure.
   beginDrawing()
   Cam.update()
   beginMode2D(Cam)
   clearBackground(Black)
+  
 
   # drawText("hi", 0,0,32, RayWhite)
 
