@@ -19,6 +19,7 @@ type
   
   LivingEntity* = ref object of Entity
     health: int
+    yaw: float = 0
 
   Player* = ref object of LivingEntity
 
@@ -38,6 +39,9 @@ proc getName*(item: Item): string =
 
 proc getHealth*(livingEntity: LivingEntity): int =
   return livingEntity.health
+
+proc setHealth*(livingEntity: LivingEntity, newHealth: int) =
+  livingEntity.health = newHealth
 
 #[
   Generic container implementation so I don't accidentally break things.
@@ -89,4 +93,4 @@ var Zombies* = Container[Zombie]()
   The only player in the game.
 ]#
 var SinglePlayer* = Player()
-
+SinglePlayer.setHealth(10)
