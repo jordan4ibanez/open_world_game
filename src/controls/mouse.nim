@@ -1,5 +1,6 @@
 import raylib
 import ../noml/vector2f
+import ../camera/camera
 
 #[
   Mouse is an abstraction built on top of the Raylib base struct for ease of use.
@@ -20,6 +21,7 @@ proc update*(mouse: MouseObj) =
   mouse.leftHeld = isMouseButtonDown(Left)
   mouse.rightHeld = isMouseButtonDown(Right)
 
+# Window cursor position.
 proc getPosition*(mouse: MouseObj): Vector2f =
   return mouse.pos
 
@@ -28,6 +30,16 @@ proc getX*(mouse: MouseObj): float =
 
 proc getY*(mouse: MouseObj): float =
   return mouse.pos.getY()
+
+# World map cursor position.
+proc getWorldPosition*(mouse: MouseObj): Vector2f =
+  return mouse.pos - Cam.getPosition()
+
+proc getWorldX*(mouse: MouseObj): float =
+  return mouse.pos.getX() - Cam.getPosition.getX()
+
+proc getWorldY*(mouse: MouseObj): float =
+  return mouse.pos.getY() - Cam.getPosition.getY()
 
 proc leftClicked*(mouse: MouseObj): bool =
   return mouse.leftClick
