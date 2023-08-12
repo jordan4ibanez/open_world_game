@@ -96,6 +96,28 @@ proc `*`*(v, other: Vector2f, output: var Vector2f): Vector2f =
     v.y * other.y
   )
 
+proc `/`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
+  v.x /= scalar
+  v.y /= scalar
+  return v
+
+proc `/`*(v: Vector2f, scalar: float): Vector2f {.discardable.} =
+  result.x = v.x / scalar
+  result.y = v.y / scalar
+
+proc `/`*(v, other: Vector2f): Vector2f =
+  result.set(
+    v.x / other.x,
+    v.y / other.y
+  )
+
+proc `/`*(v, other: Vector2f, output: var Vector2f): Vector2f =
+  return output.set(
+    v.x / other.x,
+    v.y / other.y
+  )
+
+
 proc `==`*(v,other: Vector2f): bool =
   return v.x == other.x and v.y == other.y
 
