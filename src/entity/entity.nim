@@ -24,9 +24,24 @@ type
   Player* = ref object of LivingEntity
 
   Zombie* = ref object of LivingEntity
+  
+#[
+  Entity constructors.
+]#
+proc newZombie*(position: Vector2f): Zombie =
+  Zombie(position: position)
+
+proc newZombie*(x,y: float): Zombie =
+  Zombie(position: newVector2f(x,y))
+
+proc newItem*(position: Vector2f, name: string): Item =
+  Item(position: position, name: name)
+
+proc newItem*(x,y: float, name: string): Item =
+  Item(position: newVector2f(x,y), name: name)
 
 #[
-  Basic entity things
+  Basic entity methods.
 ]#
 
 proc getX*(entity: Entity): float =
@@ -59,17 +74,15 @@ type
   Container[T] = ref object of RootObj
     values: Table[string, T]
 
-proc add*(container: Container, name: string, position: Vector2f) =
+proc add*[T](container: Container, obj: T): string {.discardable.} =
   let id: string = $genUUID()
-  container.values[id] = Item(name: name, position: position, id: id)
-
-proc add*(container: Container, name: string, x,y: float) =
-  add container, name, newVector2f(x, y)
+  container.values[id] = obj
+  return id
 
 proc has*(container: Container, id: string): bool =
   return container.values.hasKey id
 
-proc get*(container: Container, id: string): Item =
+proc get*[T](container: Container, id: string): T =
   if not has id:
     raise newException(KeyError, "Could not find " & id)
   return container.values[id]
@@ -79,7 +92,7 @@ proc remove*(container: Container, id: string) =
     raise newException(KeyError, "could not find" & id)
   container.values.del id
 
-proc getInRadius*(container: Container, position: Vector2f, radius: float): seq[Item] =
+proc getInRadius*[T](container: Container, position: Vector2f, radius: float): seq[T] =
   for item in container.values.values:
     if position.distance(item.getPosition) <= radius:
       result.add item
