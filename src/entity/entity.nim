@@ -28,6 +28,13 @@ type
 #[
   Basic entity things
 ]#
+
+proc getX*(entity: Entity): float =
+  return entity.position.getX()
+
+proc getY*(entity: Entity): float =
+  return entity.position.getY()
+
 proc getPosition*(entity: Entity): Vector2f =
   return entity.position
 
