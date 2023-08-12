@@ -10,8 +10,16 @@ type RectangleRef* = ref Rectangle
   Functional constructors.
 ]#
 proc newRectangle*(x,y,width,height: float): Rectangle =
-  result =  Rectangle(x: x, y: y, width: width, height: height)
+  result = Rectangle(x: x, y: y, width: width, height: height)
 
+proc newRectangle*(pos,size: Vector2f): Rectangle =
+  result = Rectangle(x: pos.getX(), y: pos.getY(), width: size.getX(), height: size.getY())
+
+proc newRectangle*(pos: Vector2f, width,height: float): Rectangle =
+  result = Rectangle(x: pos.getX(), y: pos.getY(), width: width, height: height)
+
+proc newRectangle*(x,y: float,size: Vector2f): Rectangle =
+  result = Rectangle(x: x, y: y, width: size.getX(), height: size.getY())
 
 #[
   Rectangle methods
