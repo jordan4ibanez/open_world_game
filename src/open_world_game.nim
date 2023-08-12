@@ -5,17 +5,26 @@ import std/strutils
 import camera/camera
 import entity/entity
 import utils/print
+import std/random
 import raylib
 import raylib_helpers/shapes
 import controls/mouse
-
-var running: bool = true
-
 
 #[
   Game entry point, init, loop, and exit.
 ]#
 proc initialize =
+  
+  randomize()
+
+  for i in 0 .. rand(4 .. 10):
+    Zombies.add(
+      newZombie(
+        (float) rand(-500 .. 500),
+        (float) rand(-500 .. 500)
+      )
+    )
+  
   setConfigFlags(flags(WindowResizable))
   initWindow(800, 600, "Hello")
   setTargetFPS(60)
@@ -25,24 +34,23 @@ proc mainLoop =
   # Update procedure.
   Mouse.update()
 
-  
+
   let directionVector = SinglePlayer.getPosition() - Mouse.getWorldPosition()
 
   let yaw = radToDeg arctan2(directionVector.getY(), directionVector.getX())
 
-  println Mouse.getWorldPosition()
-  
+
 
   # Draw procedure.
   beginDrawing()
   Cam.update()
   beginMode2D(Cam)
   clearBackground(Black)
-  
+
 
   # drawText("hi", 0,0,32, RayWhite)
 
-  let rectangle = newRectangle(SinglePlayer.getPosition(),100,200)
+  let rectangle = newRectangle(SinglePlayer.getPosition(), 100, 150)
 
   drawRectangle(rectangle, rectangle.getCenter(), yaw, Red)
 
