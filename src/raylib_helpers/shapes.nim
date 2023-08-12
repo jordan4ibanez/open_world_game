@@ -1,21 +1,27 @@
 import raylib
-
-#[
-  Automatic heap allocations.
-]#
-type RectangleRef* = ref Rectangle
+import ../noml/vector2f
 
 #[
   Functional constructors.
 ]#
-proc newRectangle*(x,y,width,height: float): RectangleRef =
-  result =  RectangleRef(x: x, y: y, width: width, height: height)
+proc newRectangle*(x,y,width,height: float): Rectangle =
+  result =  Rectangle(x: x, y: y, width: width, height: height)
+
 
 #[
-  Automatic raylib rectangle converters.
+  Rectangle methods
 ]#
-converter toRectangle*(rect: RectangleRef): raylib.Rectangle {.inline.} =
-  rect[]
-converter toRectangleRef*(rect: Rectangle): RectangleRef {.inline.} =
-  new(result)
-  result[] = rect
+proc getWidth*(r: Rectangle): float =
+  return r.width
+
+proc getHeight*(r: Rectangle): float =
+  return r.height
+
+proc getSize*(r: Rectangle): Vector2f =
+  return newVector2f(r.width, r.height)
+
+proc getPosition*(r: Rectangle): Vector2f =
+  return newVector2f(r.x, r.y)
+
+proc getCenter*(r: Rectangle): Vector2f =
+  return r.getSize / 2.0
