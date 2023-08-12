@@ -4,6 +4,8 @@ import std/sugar
 import std/tables
 import std/typetraits
 import uuids
+import std/random
+import std/math
 
 #[
   Holds the blueprints for entities.
@@ -24,26 +26,10 @@ type
   Player* = ref object of LivingEntity
 
   Zombie* = ref object of LivingEntity
-  
-#[
-  Entity constructors.
-]#
-proc newZombie*(position: Vector2f): Zombie =
-  Zombie(position: position)
-
-proc newZombie*(x,y: float): Zombie =
-  Zombie(position: newVector2f(x,y))
-
-proc newItem*(position: Vector2f, name: string): Item =
-  Item(position: position, name: name)
-
-proc newItem*(x,y: float, name: string): Item =
-  Item(position: newVector2f(x,y), name: name)
 
 #[
   Basic entity methods.
 ]#
-
 proc getX*(entity: Entity): float =
   return entity.position.getX()
 
@@ -64,6 +50,30 @@ proc getHealth*(livingEntity: LivingEntity): int =
 
 proc setHealth*(livingEntity: LivingEntity, newHealth: int) =
   livingEntity.health = newHealth
+
+proc getYaw*(livingEntity: LivingEntity): float =
+  livingEntity.yaw
+
+proc setYaw*(livingEntity: LivingEntity, yaw: float) =
+  livingEntity.yaw = yaw
+
+#[
+  Entity constructors.
+]#
+proc newZombie*(position: Vector2f): Zombie =
+  result = Zombie(position: position)
+  result.setYaw(rand(0.0 .. 1.0) * PI)
+  return result
+
+proc newZombie*(x,y: float): Zombie =
+  newZombie(newVector2f(x,y))
+
+proc newItem*(position: Vector2f, name: string): Item =
+  Item(position: position, name: name)
+
+proc newItem*(x,y: float, name: string): Item =
+  Item(position: newVector2f(x,y), name: name)
+
 
 #[
   Generic container implementation so I don't accidentally break things.
