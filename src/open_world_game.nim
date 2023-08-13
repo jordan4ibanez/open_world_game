@@ -8,9 +8,8 @@ import utils/print
 import std/random
 import raylib
 import raylib_helpers/shapes
-import controls/mouse
+import controls/[mouse,single_player_controls,keyboard]
 import text/text
-import controls/single_player_controls
 
 #[
   Game entry point, init, loop, and exit.
@@ -36,6 +35,7 @@ proc initialize =
 
 proc mainLoop =
   # Update procedure.
+  
   Mouse.update()
 
   controlPlayer()
@@ -59,12 +59,16 @@ proc mainLoop =
   # Render the zombies.
   for zombie in Zombies.getAll():
     rectangle.setPosition(zombie.getPosition())
-    drawRectangle(rectangle, rectangle.getCenter(), radToDeg zombie.getYaw(), DarkGreen)
+    zombie.setYaw(zombie.getPosition().yaw(Mouse.getWorldPosition()))
+    drawRectangle(rectangle, rectangle.getCenter(), zombie.getYaw(), DarkGreen)
+
+  drawCircle(Mouse.getWorldPosition(), 4, White)
 
   endMode2D()
 
-  # drawText(font, "hi", newVector2f(100,100), (float)font.baseSize, 2, Lime)
-
+  drawText(getFont(), SinglePlayer.getPosition().toString("position"), newVector2f(100,100), (float)32, 2, Lime)
+  drawText(getFont(), Mouse.getWorldPosition().toString("mouse"), newVector2f(100,150), (float)32, 2, Lime)
+  
   endDrawing()
 
 
