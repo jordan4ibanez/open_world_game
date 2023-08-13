@@ -147,6 +147,9 @@ proc toString*(v: Vector2f, label: string): string =
 proc newVector2f*(x,y: float): Vector2f =
   return Vector2f(x: x, y: y)
 
+proc newVector2f*: Vector2f =
+  return Vector2f(x: 0, y: 0)
+
 #[
   Automatic raylib vector2 converters.
 ]#
