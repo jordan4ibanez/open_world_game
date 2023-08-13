@@ -129,6 +129,12 @@ proc distance*(v, other: Vector2f): float =
 proc `$`*(v: Vector2f): string =
   return "Vector2f(" & $v.x & ", " & $v.y & ")"
 
+proc `$`*(v: Vector2f, label: string): string =
+  return label & " (" & $v.x & ", " & $v.y & ")"
+
+proc toString*(v: Vector2f, label: string): string =
+  return v.`$` label
+
 proc newVector2f*(x,y: float): Vector2f =
   return Vector2f(x: x, y: y)
 
