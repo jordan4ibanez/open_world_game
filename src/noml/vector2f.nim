@@ -117,7 +117,6 @@ proc `/`*(v, other: Vector2f, output: var Vector2f): Vector2f =
     v.y / other.y
   )
 
-
 proc `==`*(v,other: Vector2f): bool =
   return v.x == other.x and v.y == other.y
 
