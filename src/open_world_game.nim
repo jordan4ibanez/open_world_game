@@ -28,10 +28,11 @@ proc initialize =
   
   setConfigFlags(flags(WindowResizable))
   initWindow(800, 600, "Hello")
-  setTargetFPS(60)
+  setTargetFPS(144)
   initFont("font/roboto.ttf")
   maximizeWindow()
 
+var shadowRotation = 0.0
 
 proc mainLoop =
   # Update procedure.
@@ -39,7 +40,11 @@ proc mainLoop =
   Mouse.update()
 
   controlPlayer()
-  
+
+  shadowRotation += 0.1
+  if shadowRotation > PI * 2:
+    shadowRotation -= PI * 2
+
 
 
   # Draw procedure.
@@ -62,12 +67,28 @@ proc mainLoop =
     zombie.setYaw(zombie.getPosition().yaw(Mouse.getWorldPosition()))
     drawRectangle(rectangle, rectangle.getCenter(), zombie.getYaw(), DarkGreen)
 
+  # Render the zombie's UUID.
+  Text.setSize(30)
+  Text.setColor(Green)
+  Text.setShadowColor(Blue)
+  Text.setShadowOffset((shadowRotation * -1.0).direction 2)
+
+  for zombie in Zombies.getAll():
+    echo zombie.getID
+    textDrawCentered(zombie.getID, zombie.getPosition + newVector2f(0,-100))
+
   drawCircle(Mouse.getWorldPosition(), 4, White)
 
   endMode2D()
+  
+  Text.setSize(50)
+  Text.setColor(Red)
+  Text.setShadowColor(White)
+  Text.setShadowOffset(shadowRotation.direction 4)
 
-  drawText(getFont(), SinglePlayer.getPosition().toString("position").cstring, newVector2f(100,100), 32, 2, Lime)
-  drawText(getFont(), Mouse.getWorldPosition().toString("mouse").cstring, newVector2f(100,150), 32, 2, Lime)
+  textDraw(SinglePlayer.getPosition().toString("position"), 100, 100)
+  textDraw(Mouse.getWorldPosition().toString("mouse"), 100, 150)
+  textDraw("FPS: " & $getFPS(), 100, 200)
   
   endDrawing()
 
