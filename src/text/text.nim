@@ -5,7 +5,8 @@ var initialized = false
 
 proc initFont*(fileLocation: string) =
   if initialized:
-    raise newException(AccessViolationError, "Attempted to load the font more than once!")
+    raise newException(AccessViolationDefect, "Attempted to load the font more than once!")
   font = loadFont(fileLocation)
+  initialized = true
 
-proc getFont*: Font = font
+proc getFont*: var Font = font
