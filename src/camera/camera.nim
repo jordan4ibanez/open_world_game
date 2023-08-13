@@ -15,4 +15,4 @@ proc update*(cam: var Camera2D) =
   cam.offset = newVector2f((float)(getRenderWidth()) / 2.0,(float)(getRenderHeight()) / 2.0)
   
 proc getPosition*(cam: Camera2D): Vector2f =
-  return cam.target + cam.offset
+  return cam.target - cam.offset
