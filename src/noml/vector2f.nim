@@ -150,6 +150,9 @@ proc newVector2f*(x,y: float): Vector2f =
 proc newVector2f*: Vector2f =
   return Vector2f(x: 0, y: 0)
 
+proc newVector2f*(scalar: float): Vector2f =
+  return Vector2f(x: scalar, y: scalar)
+
 #[
   Automatic raylib vector2 converters.
 ]#

@@ -145,6 +145,9 @@ proc newVector2i*(x,y: int): Vector2i =
 proc newVector2i*: Vector2i =
   return Vector2i(x: 0, y: 0)
 
+proc newVector2i*(scalar: int): Vector2i =
+  return Vector2i(x: scalar, y: scalar)
+
 #[
   Automatic raylib vector2 converters.
 ]#
