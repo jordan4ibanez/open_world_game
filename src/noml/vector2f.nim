@@ -126,6 +126,10 @@ proc distance*(v, other: Vector2f): float =
   let distanceY = v.y - other.y
   result = sqrt( distanceX * distanceX + distanceY * distanceY)
 
+proc yaw*(v,other: Vector2f): float =
+  let directionVector = v - other
+  radToDeg arctan2(directionVector.getY(), directionVector.getX())
+
 proc `$`*(v: Vector2f): string =
   return "Vector2f(" & $v.x & ", " & $v.y & ")"
 
