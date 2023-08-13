@@ -33,11 +33,6 @@ proc set*(v: var Vector2f, other: Vector2f): Vector2f {.discardable.} =
   v.y = other.y
   return v
 
-proc `-`*(v: var Vector2f, x,y: float): Vector2f {.discardable.} =
-  v.x -= x
-  v.y -= y
-  return v
-
 proc `-`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x -= scalar
   v.y -= scalar
@@ -58,12 +53,16 @@ proc `-`*(v, other: Vector2f, output: var Vector2f): Vector2f =
     v.x - other.x,
     v.y - other.y
   )
+<<<<<<< HEAD
 
 proc `+`*(v: var Vector2f, x,y: float): Vector2f {.discardable.} =
   v.x += x
   v.y += y
   return v
 
+=======
+  
+>>>>>>> parent of 9ab4d56 (Even more helpers)
 proc `+`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x += scalar
   v.y += scalar
@@ -85,11 +84,6 @@ proc `+`*(v, other: Vector2f, output: var Vector2f): Vector2f =
     v.y + other.y
   )
 
-proc `*`*(v: var Vector2f, x,y: float): Vector2f {.discardable.} =
-  v.x *= x
-  v.y *= y
-  return v
-
 proc `*`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x *= scalar
   v.y *= scalar
@@ -110,11 +104,6 @@ proc `*`*(v, other: Vector2f, output: var Vector2f): Vector2f =
     v.x * other.x,
     v.y * other.y
   )
-
-proc `/`*(v: var Vector2f, x,y: float): Vector2f {.discardable.} =
-  v.x /= x
-  v.y /= y
-  return v
 
 proc `/`*(v: var Vector2f, scalar: float): Vector2f {.discardable.} =
   v.x /= scalar
