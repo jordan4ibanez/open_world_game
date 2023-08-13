@@ -33,13 +33,13 @@ proc getY*(mouse: MouseObj): float =
 
 # World map cursor position.
 proc getWorldPosition*(mouse: MouseObj): Vector2f =
-  return mouse.pos - Cam.getPosition()
+  return mouse.pos + Cam.getPosition()
 
 proc getWorldX*(mouse: MouseObj): float =
-  return mouse.pos.getX() - Cam.getPosition.getX()
+  return mouse.pos.getX() + Cam.getPosition.getX()
 
 proc getWorldY*(mouse: MouseObj): float =
-  return mouse.pos.getY() - Cam.getPosition.getY()
+  return mouse.pos.getY() + Cam.getPosition.getY()
 
 proc leftClicked*(mouse: MouseObj): bool =
   return mouse.leftClick
