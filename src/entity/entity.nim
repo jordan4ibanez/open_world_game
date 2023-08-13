@@ -89,6 +89,7 @@ type
 
 proc add*[T](container: EntityContainer, obj: T): string {.discardable.} =
   let id: string = $genUUID()
+  obj.id = id
   container.values[id] = obj
   return id
 
