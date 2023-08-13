@@ -23,7 +23,7 @@ proc setY*(v: var Vector2f, y: float): Vector2f {.discardable.} =
   v.y = y
   return v
 
-proc set*(v: var Vector2f, x,y: float): Vector2f =
+proc set*(v: var Vector2f, x,y: float): Vector2f {.discardable.} =
   v.x = x
   v.y = y
   return v
@@ -128,6 +128,12 @@ proc distance*(v, other: Vector2f): float =
 proc yaw*(v,other: Vector2f): float =
   let directionVector = v - other
   radToDeg arctan2(directionVector.getY(), directionVector.getX())
+
+proc direction*(yaw: float, scalar: float = 1.0): Vector2f =
+  result.set(
+    sin(-yaw),
+    cos(yaw)
+  ) * scalar
 
 proc `$`*(v: Vector2f): string =
   return "Vector2f(" & $v.x & ", " & $v.y & ")"
