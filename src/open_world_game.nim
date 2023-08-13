@@ -10,6 +10,7 @@ import raylib
 import raylib_helpers/shapes
 import controls/mouse
 
+
 #[
   Game entry point, init, loop, and exit.
 ]#
@@ -50,7 +51,7 @@ proc mainLoop =
   clearBackground(Black)
 
 
-  # drawText("hi", 0,0,32, RayWhite)
+  drawText("hi", 0,0,32, RayWhite)
 
   var rectangle = newRectangle(SinglePlayer.getPosition(), 100, 150)
 
@@ -63,6 +64,9 @@ proc mainLoop =
     drawRectangle(rectangle, rectangle.getCenter(), radToDeg zombie.getYaw(), DarkGreen)
 
   endMode2D()
+
+  # drawText(font, "hi", newVector2f(100,100), (float)font.baseSize, 2, Lime)
+
   endDrawing()
 
 
