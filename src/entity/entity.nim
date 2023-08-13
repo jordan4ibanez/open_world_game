@@ -76,38 +76,38 @@ proc newItem*(x,y: float, name: string): Item =
 
 
 #[
-  Generic container implementation so I don't accidentally break things.
+  Generic Entity container implementation so I don't accidentally break things.
   Which has happened plenty times before.
   This is a wrapper around a table.
 ]#
 type
-  Container[T] = ref object of RootObj
+  EntityContainer[T] = ref object of RootObj
     values: Table[string, T]
 
-proc add*[T](container: Container, obj: T): string {.discardable.} =
+proc add*[T](container: EntityContainer, obj: T): string {.discardable.} =
   let id: string = $genUUID()
   container.values[id] = obj
   return id
 
-proc has*(container: Container, id: string): bool =
+proc has*(container: EntityContainer, id: string): bool =
   return container.values.hasKey id
 
-proc get*[T](container: Container, id: string): T =
+proc get*[T](container: EntityContainer, id: string): T =
   if not has id:
     raise newException(KeyError, "Could not find " & id)
   return container.values[id]
 
-proc remove*(container: Container, id: string) =
+proc remove*(container: EntityContainer, id: string) =
   if not container.has id:
     raise newException(KeyError, "could not find" & id)
   container.values.del id
 
-proc getInRadius*[T](container: Container, position: Vector2f, radius: float): seq[T] =
+proc getInRadius*[T](container: EntityContainer, position: Vector2f, radius: float): seq[T] =
   for item in container.values.values:
     if position.distance(item.getPosition) <= radius:
       result.add item
 
-proc getAll*[T](container: Container[T]): seq[T] =
+proc getAll*[T](container: EntityContainer[T]): seq[T] =
   # Table[system.string, T]
   return collect:
     for item in container.values.values:
@@ -116,8 +116,8 @@ proc getAll*[T](container: Container[T]): seq[T] =
 #[
   Entity containers.
 ]#
-var Items* = Container[Item]()
-var Zombies* = Container[Zombie]()
+var Items* = EntityContainer[Item]()
+var Zombies* = EntityContainer[Zombie]()
 
 #[
   The only player in the game.
