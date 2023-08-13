@@ -33,6 +33,11 @@ proc set*(v: var Vector2i, other: Vector2i): Vector2i {.discardable.} =
   v.y = other.y
   return v
 
+proc `-`*(v: var Vector2i, x,y: int): Vector2i {.discardable.} =
+  v.x -= x
+  v.y -= y
+  return v
+
 proc `-`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x -= scalar
   v.y -= scalar
@@ -53,6 +58,11 @@ proc `-`*(v, other: Vector2i, output: var Vector2i): Vector2i =
     v.x - other.x,
     v.y - other.y
   )
+
+proc `+`*(v: var Vector2i, x,y: int): Vector2i {.discardable.} =
+  v.x += x
+  v.y += y
+  return v
 
 proc `+`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x += scalar
@@ -75,6 +85,11 @@ proc `+`*(v, other: Vector2i, output: var Vector2i): Vector2i =
     v.y + other.y
   )
 
+proc `*`*(v: var Vector2i, x,y: int): Vector2i {.discardable.} =
+  v.x *= x
+  v.y *= y
+  return v
+
 proc `*`*(v: var Vector2i, scalar: int): Vector2i {.discardable.} =
   v.x *= scalar
   v.y *= scalar
@@ -95,6 +110,11 @@ proc `*`*(v, other: Vector2i, output: var Vector2i): Vector2i =
     v.x * other.x,
     v.y * other.y
   )
+
+proc `/`*(v: var Vector2i, x,y: float): Vector2i {.discardable.} =
+  v.x = (int)floor(float(v.x) / x)
+  v.y = (int)floor(float(v.y) / y)
+  return v
 
 proc `/`*(v: var Vector2i, scalar: float): Vector2i {.discardable.} =
   v.x = (int)floor(float(v.x) / scalar)
