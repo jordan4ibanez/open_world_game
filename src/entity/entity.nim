@@ -39,6 +39,9 @@ proc getY*(entity: Entity): float =
 proc getPosition*(entity: Entity): Vector2f =
   return entity.position
 
+proc setPosition*(entity: Entity, newPosition: Vector2f) =
+  entity.position.set(newPosition)
+
 proc getID*(entity: Entity): string =
   return entity.id
 
