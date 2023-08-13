@@ -10,6 +10,7 @@ import raylib
 import raylib_helpers/shapes
 import controls/mouse
 import text/text
+import controls/single_player_controls
 
 #[
   Game entry point, init, loop, and exit.
@@ -37,13 +38,8 @@ proc mainLoop =
   # Update procedure.
   Mouse.update()
 
-
-  let directionVector = SinglePlayer.getPosition() - Mouse.getWorldPosition()
-
-  let yaw = radToDeg arctan2(directionVector.getY(), directionVector.getX())
-
-  SinglePlayer.setYaw(yaw)
-
+  controlPlayer()
+  
 
 
   # Draw procedure.
