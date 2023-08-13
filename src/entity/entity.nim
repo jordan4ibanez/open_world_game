@@ -16,16 +16,16 @@ type
     id: string
     position: Vector2f
   
-  Item* = ref object of Entity
+  Item = ref object of Entity
     name: string
   
-  LivingEntity* = ref object of Entity
+  LivingEntity = ref object of Entity
     health: int
     yaw: float = 0
 
-  Player* = ref object of LivingEntity
+  Player = ref object of LivingEntity
 
-  Zombie* = ref object of LivingEntity
+  Zombie = ref object of LivingEntity
 
 #[
   Basic entity methods.
