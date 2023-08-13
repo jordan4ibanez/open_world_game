@@ -58,7 +58,7 @@ proc `-`*(v, other: Vector2f, output: var Vector2f): Vector2f =
     v.x - other.x,
     v.y - other.y
   )
-  
+
 proc `+`*(v: var Vector2f, x,y: float): Vector2f {.discardable.} =
   v.x += x
   v.y += y
