@@ -66,8 +66,8 @@ proc mainLoop =
 
   endMode2D()
 
-  drawText(getFont(), SinglePlayer.getPosition().toString("position"), newVector2f(100,100), (float)32, 2, Lime)
-  drawText(getFont(), Mouse.getWorldPosition().toString("mouse"), newVector2f(100,150), (float)32, 2, Lime)
+  drawText(getFont(), SinglePlayer.getPosition().toString("position").cstring, newVector2f(100,100), 32, 2, Lime)
+  drawText(getFont(), Mouse.getWorldPosition().toString("mouse").cstring, newVector2f(100,150), 32, 2, Lime)
   
   endDrawing()
 
