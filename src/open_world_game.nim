@@ -9,7 +9,7 @@ import std/random
 import raylib
 import raylib_helpers/shapes
 import controls/mouse
-
+import text/text
 
 #[
   Game entry point, init, loop, and exit.
@@ -29,6 +29,8 @@ proc initialize =
   setConfigFlags(flags(WindowResizable))
   initWindow(800, 600, "Hello")
   setTargetFPS(60)
+  initFont("font/roboto.ttf")
+  maximizeWindow()
 
 
 proc mainLoop =
