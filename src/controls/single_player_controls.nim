@@ -31,5 +31,4 @@ proc controlPlayer* =
   
   SinglePlayer.setPosition(pos)
 
-
   
