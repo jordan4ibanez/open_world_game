@@ -74,7 +74,7 @@ proc mainLoop =
   Text.setShadowOffset((shadowRotation * -1.0).direction 2)
 
   for zombie in Zombies.getAll():
-    echo zombie.getID
+    # echo zombie.getID
     textDrawCentered(zombie.getID, zombie.getPosition + newVector2f(0,-100))
 
   drawCircle(Mouse.getWorldPosition(), 4, White)
