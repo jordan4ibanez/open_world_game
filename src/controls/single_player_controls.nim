@@ -4,6 +4,8 @@ import ../entity/entity
 import mouse
 import keyboard
 import std/math
+import ../camera/camera
+import ../utils/print
 
 #[
   This is player controls done purely functionally. For now.
@@ -31,4 +33,8 @@ proc controlPlayer* =
   
   SinglePlayer.setPosition(pos)
 
+  let mouseScroll = Mouse.getScrollY()
+
+  if mouseScroll != 0:
+    Cam.setZoom(clamp(Cam.getZoom + (mouseScroll / 50.0), 0.3, 1.0))
   
