@@ -13,6 +13,7 @@ type
     rightClick: bool
     leftHeld: bool
     rightHeld: bool
+    scrollDelta: Vector2f
 
 proc update*(mouse: MouseObj) =
   mouse.pos = getMousePosition()
@@ -20,6 +21,7 @@ proc update*(mouse: MouseObj) =
   mouse.rightClick = isMouseButtonPressed(Right)
   mouse.leftHeld = isMouseButtonDown(Left)
   mouse.rightHeld = isMouseButtonDown(Right)
+  mouse.scrollDelta.set(getMouseWheelMoveV())
 
 # Window cursor position.
 proc getPosition*(mouse: MouseObj): Vector2f =
@@ -33,13 +35,13 @@ proc getY*(mouse: MouseObj): float =
 
 # World map cursor position.
 proc getWorldPosition*(mouse: MouseObj): Vector2f =
-  return mouse.pos + Cam.getPosition()
+  getScreenToWorld2D(mouse.pos, Cam)
 
 proc getWorldX*(mouse: MouseObj): float =
-  return mouse.pos.getX() + Cam.getPosition.getX()
+  getWorldPosition(mouse).getX
 
 proc getWorldY*(mouse: MouseObj): float =
-  return mouse.pos.getY() + Cam.getPosition.getY()
+  getWorldPosition(mouse).getX
 
 proc leftClicked*(mouse: MouseObj): bool =
   return mouse.leftClick
@@ -52,5 +54,14 @@ proc leftHeld*(mouse: MouseObj): bool =
 
 proc rightHeld*(mouse: MouseObj): bool =
   return mouse.rightHeld
+
+proc getScroll*(mouse: MouseObj): Vector2f =
+  return mouse.scrollDelta
+
+proc getScrollX*(mouse: MouseObj): float =
+  return mouse.scrollDelta.getX
+
+proc getScrollY*(mouse: MouseObj): float =
+  return mouse.scrollDelta.getY
 
 var Mouse* = MouseObj()
