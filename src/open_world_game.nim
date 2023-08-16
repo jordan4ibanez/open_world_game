@@ -84,7 +84,7 @@ proc mainLoop =
 
   endMode2D()
 
-  performBootSequence()
+  # performBootSequence()
   
   Text.setSize(50)
   Text.setColor(Red)
