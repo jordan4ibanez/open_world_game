@@ -1,5 +1,6 @@
 import raylib
 import ../text/text
+import ../sound/sound
 
 let bootSequence = @[
   "IMB 7094 LOADING...",
@@ -23,6 +24,7 @@ var typingSpeed = 1.0
 var typingGoal = 0.05
 var linePause = 2.0
 var linePauseAccumulator = 0.0
+var timeToBeep = true
 
 proc performBootSequence*: bool {.discardable.} =
 
@@ -31,6 +33,10 @@ proc performBootSequence*: bool {.discardable.} =
 
   let delta = getFrameTime()
   textDraw(bootSequence[line][0..<letter], 0,(float)(line) * 32.0)
+
+  if timeToBeep:
+    soundPlay("beep.wav")
+    timeToBeep = false
 
   if line > 0:
     for i in 0 ..< line:
@@ -49,10 +55,9 @@ proc performBootSequence*: bool {.discardable.} =
         linePauseAccumulator = 0.0
         typingAccumulator = 0.0
         letter = 0
+        timeToBeep = true
       return false
     inc letter
     typingAccumulator = 0.0
-
-
 
   return false
