@@ -10,4 +10,6 @@ proc soundPlay*(fileName: string) =
   playSound(sounds.get(fileName)[])
 
 
-# converter
+proc cleanUpSounds* =
+  for key in sounds.getKeys:
+    sounds.remove(key)
