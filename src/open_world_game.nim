@@ -10,6 +10,7 @@ import raylib
 import raylib_helpers/shapes
 import controls/[mouse,single_player_controls,keyboard]
 import text/text
+import intro/intro
 
 #[
   Game entry point, init, loop, and exit.
@@ -29,6 +30,7 @@ proc initialize =
   setConfigFlags(flags(WindowResizable))
   initWindow(800, 600, "Hello")
   setTargetFPS(144)
+  initAudioDevice()
   initFont("font/roboto.ttf")
   maximizeWindow()
 
@@ -80,6 +82,8 @@ proc mainLoop =
   drawCircle(Mouse.getWorldPosition(), 4, White)
 
   endMode2D()
+
+  performBootSequence()
   
   Text.setSize(50)
   Text.setColor(Red)
@@ -90,10 +94,13 @@ proc mainLoop =
   textDraw(Mouse.getWorldPosition().toString("mouse"), 100, 150)
   textDraw("FPS: " & $getFPS(), 100, 200)
   
+
   endDrawing()
 
 
 proc cleanUp =
+
+  closeAudioDevice()
   closeWindow()
 
 
