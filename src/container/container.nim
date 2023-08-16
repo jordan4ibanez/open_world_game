@@ -34,3 +34,8 @@ proc getAll*[T](container: Container[T]): seq[T] =
   return collect:
     for item in container.values.values:
       item
+
+proc getKeys*(container: Container): seq[string] =
+  return collect:
+    for key in container.values.keys:
+      key
