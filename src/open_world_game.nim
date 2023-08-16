@@ -11,6 +11,7 @@ import raylib_helpers/shapes
 import controls/[mouse,single_player_controls,keyboard]
 import text/text
 import intro/intro
+import sound/sound
 
 #[
   Game entry point, init, loop, and exit.
@@ -100,6 +101,7 @@ proc mainLoop =
 
 proc cleanUp =
 
+  cleanUpSounds()
   closeAudioDevice()
   closeWindow()
 
