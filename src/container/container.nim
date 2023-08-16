@@ -7,7 +7,7 @@ import std/tables
   This is a wrapper around a table.
 ]#
 type
-  Container[T] = ref object of RootObj
+  Container*[T] = ref object of RootObj
     values: Table[string, T]
 
 proc add*[T](container: Container, key: string, obj: T) =
@@ -16,8 +16,11 @@ proc add*[T](container: Container, key: string, obj: T) =
 proc has*(container: Container, id: string): bool =
   return container.values.hasKey id
 
-proc get*[T](container: Container, id: string): T =
-  if not has id:
+proc contains*(container: Container, id: string): bool =
+  return container.values.hasKey id
+
+proc get*[T](container: Container[T], id: string): T =
+  if not container.has(id):
     raise newException(KeyError, "Could not find " & id)
   return container.values[id]
 
