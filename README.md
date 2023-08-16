@@ -27,3 +27,8 @@ An easy way to automatically get this running before using the incremental autos
 # (in the root of this folder)
 nimble run
 ```
+
+todo list:
+
+1.) draw map
+2.) correct way to move around
